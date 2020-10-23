@@ -11,7 +11,7 @@ class OverviewAdapter(private val onClickListener: OnClickListener): androidx.re
         OverviewAdapter.StatesPropertyViewHolder>(DiffCallback) {
 
     class StatesPropertyViewHolder(private var binding: ListViewStatesBinding):
-            RecyclerView.ViewHolder(binding.root){
+        RecyclerView.ViewHolder(binding.root){
         fun bind(states: State){
             binding.stateproperty = states
             binding.executePendingBindings()
@@ -44,3 +44,5 @@ class OverviewAdapter(private val onClickListener: OnClickListener): androidx.re
         fun onClick(states: State) = clickListener(states)
     }
 }
+
+

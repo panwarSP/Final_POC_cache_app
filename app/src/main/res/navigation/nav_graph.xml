@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/overviewFragment">
+
+    <fragment
+        android:id="@+id/overviewFragment"
+        android:name="com.example.poccacheapp.overview.OverviewFragment"
+        tools:layout="@layout/overview_fragment"
+        android:label="overviewFragment" >
+        <action
+            android:id="@+id/action_overviewFragment_to_photosFragment"
+            app:destination="@id/photosFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_showDetail"
+            app:destination="@id/citiesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photosFragment"
+        android:name="com.example.poccacheapp.photos.photosFragment"
+        android:label="fragment_photos"
+        tools:layout="@layout/photos_fragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/citiesFragment"
+        android:name="com.example.poccacheapp.cities.CitiesFragment"
+        android:label="CitiesFragment"
+        tools:layout="@layout/cities_fragment">
+        <argument
+            android:name="selectedProperty"
+            app:argType="com.example.poccacheapp.data.State"
+            />
+    </fragment>
+</navigation>

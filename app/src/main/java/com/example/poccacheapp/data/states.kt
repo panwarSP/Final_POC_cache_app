@@ -1,38 +1,40 @@
-package com.example.poccacheapp.networking
+package com.example.poccacheapp.data
 
-data class Base(
-    val States: States
-)
-data class States(
-    val Rajasthan: List<Rajasthan1>,
-    val Uttarpradesh: List<Uttarpradesh1>
-)
-data class Rajasthan1(
-    val City: String,
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+data class BaseStates(
+    val States: List<State>
+): Parcelable
+@Parcelize
+data class State(
+    val id: String,
+    val Name: String,
+    val State_Image: String,
+    val Cities: List<City>
+):Parcelable
+
+@Parcelize
+data class City(
+    val City_name: String,
     val STD_Code: String,
     val City_Image: String,
     val city_weather: List<City_weather1>,
     val main: Main
-)
+):Parcelable
 
-data class Uttarpradesh1(
-    val City: String,
-    val STD_Code: String,
-    val City_Image: String,
-    val city_weather: List<City_weather1>,
-    val main: Main
-)
-
+@Parcelize
 data class City_weather1(
-    val id: Int,
-    val main: String,
+    val id: String,
+    val weather: String,
     val description: String
-)
-
+):Parcelable
+@Parcelize
 data class Main(
     val temp: Int,
     val pressure: Int,
     val humidity: Int
-)
+):Parcelable
 
 

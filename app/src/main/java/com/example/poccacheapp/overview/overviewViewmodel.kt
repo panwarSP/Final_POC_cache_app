@@ -1,4 +1,4 @@
-package com.example.poccacheapp.viewmodel
+package com.example.poccacheapp.overview
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,13 +9,19 @@ import com.example.poccacheapp.network.AllApi
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-enum class ApiStatus { LOADING, ERROR, DONE}
+enum class StatesApiStatus { LOADING, ERROR, DONE}
 class OverviewViewmodel: ViewModel() {
-    private val _status = MutableLiveData<ApiStatus>()
+
+    private val _status = MutableLiveData<StatesApiStatus>()
 
     // The external immutable LiveData for the response String
-    val status: LiveData<ApiStatus>
+    val status: LiveData<StatesApiStatus>
         get() = _status
+
+    private val _response = MutableLiveData<String>()
+
+    val response: LiveData<String>
+        get() = _response
 
     private val _properties1 = MutableLiveData<List<State>>()
     val properties1: LiveData<List<State>>
@@ -29,17 +35,16 @@ class OverviewViewmodel: ViewModel() {
         getStates()
     }
 
-    fun getStates(){
-        _status.value = ApiStatus.LOADING
+    private fun getStates(){
+        _status.value = StatesApiStatus.LOADING
         viewModelScope.launch {
             try {
                 _properties1.value = AllApi.retrofitService.getStatesProperties().States
-
-                //_properties2.value = AllApi.retrofitService.getStatesProperties().States.Uttarpradesh
-                _status.value = ApiStatus.DONE
+                _status.value = StatesApiStatus.DONE
             }
             catch (e: Exception) {
-                _status.value = ApiStatus.ERROR
+                //_response.value = "Failure: ${e.message}"
+                _status.value = StatesApiStatus.ERROR
                 _properties1.value = ArrayList()
             }
         }

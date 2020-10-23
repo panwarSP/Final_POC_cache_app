@@ -1,4 +1,4 @@
-package com.example.poccacheapp.networking
+package com.example.poccacheapp.data
 
 data class Config(
     val API_URLs: List<api>,
