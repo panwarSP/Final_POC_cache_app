@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foregroundGravity="center"
-        app:contentPadding="10dp"
         >
 
         <LinearLayout
@@ -23,6 +22,8 @@
             android:layout_height="wrap_content"
             android:background="?android:attr/detailsElementBackground"
             android:gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
             android:orientation="vertical">
 
             <TextView
@@ -31,15 +32,13 @@
                 android:layout_height="60dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/custom_background"
-                android:fontFamily="sans-serif-black"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
                 android:gravity="center"
                 android:padding="2dp"
-                android:scaleType="centerCrop"
                 android:text="@{stateproperty.name}"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAllCaps="false"
+                android:textColor="#000000"
+                android:textSize="24sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

@@ -48,9 +48,10 @@
             android:id="@+id/property_type_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:textColor="#de000000"
-            android:textSize="39sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
+            android:textSize="40sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/city_image"
             android:text="@{cityViewModel.displayCityName}"/>
@@ -60,10 +61,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="STD_code:  "
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             android:textAlignment="viewStart"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/property_type_text" />
 
         <TextView
@@ -71,7 +74,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="@{cityViewModel.displaySTD}"
+            android:textSize="16sp"
             app:layout_constraintLeft_toRightOf="@id/std_code"
             app:layout_constraintTop_toBottomOf="@id/property_type_text" />
 
@@ -80,6 +85,8 @@
             android:id="@+id/temp"
             android:layout_height="wrap_content"
             android:text="Temp(c):"
+            android:textSize="16sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/tempnumber"
             app:layout_constraintTop_toBottomOf="@id/std_code"
@@ -90,6 +97,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="28dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="@{cityViewModel.displayTemp}"
             app:layout_constraintLeft_toRightOf="@id/temp"
             app:layout_constraintTop_toBottomOf="@id/std_code" />
@@ -100,6 +109,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="72dp"
             android:text="weather: "
+            android:textSize="16sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             app:layout_constraintLeft_toRightOf="@id/tempnumber"
             app:layout_constraintTop_toBottomOf="@id/std_code" />
 
@@ -107,6 +118,8 @@
             android:layout_width="wrap_content"
             android:id="@+id/weatherdesc"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="@{cityViewModel.displayCity_weather1}"
             app:layout_constraintLeft_toRightOf="@id/weather"
             app:layout_constraintTop_toBottomOf="@id/std_code"
@@ -126,9 +139,10 @@
             android:id="@+id/property_type_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:textColor="#de000000"
-            android:textSize="39sp"
+            android:textSize="40sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/city_image2"
             android:text="@{cityViewModel.displayCityName2}"/>
@@ -138,7 +152,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="STD_code:  "
+            android:textSize="16sp"
             android:textAlignment="viewStart"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -149,6 +165,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="@{cityViewModel.displaySTD2}"
             app:layout_constraintLeft_toRightOf="@id/std_code"
             app:layout_constraintTop_toBottomOf="@id/property_type_text2" />
@@ -158,6 +176,8 @@
             android:id="@+id/temp2"
             android:layout_height="wrap_content"
             android:text="Temp(c):"
+            android:textSize="16sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/tempnumber2"
             app:layout_constraintTop_toBottomOf="@id/std_code2"
@@ -168,6 +188,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="28dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="@{cityViewModel.displayTemp2}"
             app:layout_constraintLeft_toRightOf="@id/temp2"
             app:layout_constraintTop_toBottomOf="@id/std_code2" />
@@ -178,6 +200,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="72dp"
             android:text="weather: "
+            android:textSize="16sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             app:layout_constraintLeft_toRightOf="@id/tempnumber2"
             app:layout_constraintTop_toBottomOf="@id/std_code2" />
 
@@ -185,6 +209,8 @@
             android:layout_width="wrap_content"
             android:id="@+id/weatherdesc2"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="@font/alegreya_sans_sc_medium"
             android:text="@{cityViewModel.displayCity_weather12}"
             app:layout_constraintLeft_toRightOf="@id/weather2"
             app:layout_constraintTop_toBottomOf="@id/std_code2"
