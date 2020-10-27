@@ -2,6 +2,7 @@ package com.example.poccacheapp.Util
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.os.AsyncTask
 import android.os.Bundle
@@ -10,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.poccacheapp.MainActivity
 import com.example.poccacheapp.R
 import kotlinx.android.synthetic.main.activity_splash.*
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
+import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -45,7 +48,7 @@ class SplashActivity : AppCompatActivity() {
     fun getInfo(view: View){
         if (NetworkAvail()){
             splash_logo.setImageResource(R.drawable.capture)
-            PrefetchData().execute("https://run.mocky.io/v3/831a7dc1-800c-4757-8547-e844b7a9d24a")
+            PrefetchData().execute("https://run.mocky.io/v3/11070c5e-7bcb-436d-a5a1-3fb536fb86a2")
         }
         else{
             text.text = "No Network"
@@ -64,20 +67,43 @@ class SplashActivity : AppCompatActivity() {
      * Async Task to make http call
      */
     private inner class PrefetchData :
-        AsyncTask<String, Void?, Void?>() {
+        AsyncTask<String, Void?, String?>() {
         override fun onPreExecute() {
             super.onPreExecute()
             // before making http calls
         }
 
-        override fun doInBackground(vararg params: String?): Void? {
-
+        override fun doInBackground(vararg params: String?): String? {
+/*
             httpGet(params[0])
             return null
+
+ */
+            val result = httpGet(params[0])
+
+
+            return result
+
         }
 
-        override fun onPostExecute(result: Void?) {
+        override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
+
+            val dataJSON = JSONObject(result)
+            val apiArray = dataJSON.getJSONArray("API_URLs")
+            val length = dataJSON.length()
+
+            val obj1 = apiArray.getJSONObject(0)
+            val u1 = obj1.getString("URL")
+            val obj2 = apiArray.getJSONObject(1)
+            val u2 = obj2.getString("URL")
+
+            val sharedPreferences: SharedPreferences = applicationContext.getSharedPreferences("APIs",Context.MODE_PRIVATE)
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
+            editor.putString("url1",u1)
+            editor.putString("url2",u2)
+            editor.apply()
             val i = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(i)
             // close this activity
@@ -107,8 +133,20 @@ class SplashActivity : AppCompatActivity() {
         }
         else
             result = " "
-
         return result
+/*
+        val read = BufferedReader(InputStreamReader(conn.inputStream))
+
+        var response = ""
+        var line = read.readLine()
+
+        while(line!=null){
+            response += line
+            line = read.readLine()
+        }
+        return response
+*/
+
     }
 }
 

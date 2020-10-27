@@ -13,9 +13,13 @@ class CitiesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         @Suppress("UNUSED_VARIABLE")
+
+
         val application = requireNotNull(activity).application
         val binding = CitiesFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = this
+
+
 
         val city = CitiesFragmentArgs.fromBundle(arguments!!).selectedProperty.Cities
         val viewModelFactory = CityViewModelFactory(city, application)

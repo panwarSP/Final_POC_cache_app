@@ -13,10 +13,12 @@
         <action
             android:id="@+id/action_overviewFragment_to_photosFragment"
             app:destination="@id/photosFragment"
+            app:enterAnim="@anim/from_right"
             app:launchSingleTop="true" />
         <action
             android:id="@+id/action_showDetail"
-            app:destination="@id/citiesFragment" />
+            app:destination="@id/citiesFragment"
+            app:enterAnim="@anim/from_right" />
     </fragment>
     <fragment
         android:id="@+id/photosFragment"

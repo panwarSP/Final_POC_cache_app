@@ -8,6 +8,7 @@
             name="cityViewModel"
             type="com.example.poccacheapp.cities.CitiesViewModel" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

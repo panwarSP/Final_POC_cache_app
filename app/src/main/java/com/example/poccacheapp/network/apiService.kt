@@ -25,7 +25,7 @@ private val retrofit = Retrofit.Builder()
 
 interface ApiService {
 
-    @GET("7e32f9c7-06f7-4bca-9795-ca6b4703d046")
+    @GET("")
     suspend fun getStatesProperties(): BaseStates
 
     @GET("6c5bba13-35a8-4e59-97b1-2e38d5966b15")
