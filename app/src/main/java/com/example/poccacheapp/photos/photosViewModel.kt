@@ -2,18 +2,13 @@ package com.example.poccacheapp.photos
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.poccacheapp.data.Config
 import com.example.poccacheapp.data.Photos1
-import com.example.poccacheapp.data.api
 import com.example.poccacheapp.network.AllApi
-import com.example.poccacheapp.u2
 import kotlinx.coroutines.launch
 
 enum class PhotosApiStatus { LOADING, ERROR, DONE}
-
 
 class PhotosViewModel(application: Application) : AndroidViewModel(application){
 
@@ -37,11 +32,18 @@ class PhotosViewModel(application: Application) : AndroidViewModel(application){
     private fun getPhotos(){
         _status.value = PhotosApiStatus.LOADING
         val pref = getApplication<Application>().applicationContext.getSharedPreferences("APIs",Context.MODE_PRIVATE)
-        val url1 = pref.getString("url2","")
-        Log.d("ds",url1.toString())
+        val url2 = pref.getString("url2","")
+        val editor = pref.edit()
+        Log.d("ds",url2.toString())
         viewModelScope.launch {
             try {
-                _photosProperties.value = AllApi.retrofitService.getPhotosProperties(url1.toString()).photos
+                val p = AllApi.retrofitService.getPhotosProperties(url2.toString()).photos
+                _photosProperties.value = p
+                editor.putString("photo1",p[0].detail.image.url)
+
+                val p1 = pref.getString("photo1","")
+                editor.apply()
+                editor.commit()
                 _status.value = PhotosApiStatus.DONE
             }
             catch (e: Exception){

@@ -1,21 +1,19 @@
 package com.example.poccacheapp.overview
 
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.poccacheapp.MainActivity
 import com.example.poccacheapp.Util.SplashActivity
 import com.example.poccacheapp.data.State
 import com.example.poccacheapp.network.AllApi
-import com.example.poccacheapp.u1
 import kotlinx.coroutines.launch
 
 
 enum class StatesApiStatus { LOADING, ERROR, DONE}
-class OverviewViewmodel: ViewModel() {
+class OverviewViewmodel(application: Application) : AndroidViewModel(application) {
     private val _status = MutableLiveData<StatesApiStatus>()
 
     // The external immutable LiveData for the response String
@@ -41,13 +39,17 @@ class OverviewViewmodel: ViewModel() {
 
     private fun getStates(){
         _status.value = StatesApiStatus.LOADING
+        val pref = getApplication<Application>().applicationContext.getSharedPreferences("APIs",Context.MODE_PRIVATE)
+        val url1 = pref.getString("url1","")
+        val editor = pref.edit()
+        Log.d("ds",url1.toString())
         viewModelScope.launch {
             try {
-                _properties1.value = AllApi.retrofitService.getStatesProperties(u1).States
+                _properties1.value = AllApi.retrofitService.getStatesProperties(url1.toString()).States
                 _status.value = StatesApiStatus.DONE
             }
             catch (e: Exception) {
-                _response.value = "Failure: ${e.message} + ${u1}"
+                _response.value = "Failure: ${e.message}"
                 _status.value = StatesApiStatus.ERROR
                 _properties1.value = ArrayList()
             }
