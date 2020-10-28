@@ -1,18 +1,21 @@
 package com.example.poccacheapp.photos
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
+import android.util.Log
+import androidx.lifecycle.*
 import com.example.poccacheapp.data.Config
 import com.example.poccacheapp.data.Photos1
 import com.example.poccacheapp.data.api
 import com.example.poccacheapp.network.AllApi
+import com.example.poccacheapp.u2
 import kotlinx.coroutines.launch
 
 enum class PhotosApiStatus { LOADING, ERROR, DONE}
 
-class PhotosViewModel: ViewModel(){
+
+class PhotosViewModel(application: Application) : AndroidViewModel(application){
 
     private val _status = MutableLiveData<PhotosApiStatus>()
     val status: LiveData<PhotosApiStatus>
@@ -33,9 +36,12 @@ class PhotosViewModel: ViewModel(){
 
     private fun getPhotos(){
         _status.value = PhotosApiStatus.LOADING
+        val pref = getApplication<Application>().applicationContext.getSharedPreferences("APIs",Context.MODE_PRIVATE)
+        val url1 = pref.getString("url2","")
+        Log.d("ds",url1.toString())
         viewModelScope.launch {
             try {
-                _photosProperties.value = AllApi.retrofitService.getPhotosProperties().photos
+                _photosProperties.value = AllApi.retrofitService.getPhotosProperties(url1.toString()).photos
                 _status.value = PhotosApiStatus.DONE
             }
             catch (e: Exception){

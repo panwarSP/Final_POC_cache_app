@@ -1,17 +1,21 @@
 package com.example.poccacheapp.overview
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.poccacheapp.MainActivity
+import com.example.poccacheapp.Util.SplashActivity
 import com.example.poccacheapp.data.State
 import com.example.poccacheapp.network.AllApi
+import com.example.poccacheapp.u1
 import kotlinx.coroutines.launch
-import java.lang.Exception
+
 
 enum class StatesApiStatus { LOADING, ERROR, DONE}
 class OverviewViewmodel: ViewModel() {
-
     private val _status = MutableLiveData<StatesApiStatus>()
 
     // The external immutable LiveData for the response String
@@ -39,11 +43,11 @@ class OverviewViewmodel: ViewModel() {
         _status.value = StatesApiStatus.LOADING
         viewModelScope.launch {
             try {
-                _properties1.value = AllApi.retrofitService.getStatesProperties().States
+                _properties1.value = AllApi.retrofitService.getStatesProperties(u1).States
                 _status.value = StatesApiStatus.DONE
             }
             catch (e: Exception) {
-                //_response.value = "Failure: ${e.message}"
+                _response.value = "Failure: ${e.message} + ${u1}"
                 _status.value = StatesApiStatus.ERROR
                 _properties1.value = ArrayList()
             }
@@ -57,3 +61,4 @@ class OverviewViewmodel: ViewModel() {
         _navigateToSelectedProperty.value = null
     }
 }
+
