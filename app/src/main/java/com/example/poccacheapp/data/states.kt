@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class BaseStates(
     val States: List<State>
 ): Parcelable
+
 @Parcelize
 data class State(
     val id: String,

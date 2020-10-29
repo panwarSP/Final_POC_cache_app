@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.poccacheapp.data.BaseStates
 import com.example.poccacheapp.data.State
 import com.example.poccacheapp.network.AllApi
 import com.google.gson.Gson
@@ -73,7 +74,8 @@ class OverviewViewmodel(application: Application) : AndroidViewModel(application
                 else{
                     val gson = Gson()
                     val result : String? ="{ States:${pref.getString("statesapi", "")}}"
-                    val a = gson.fromJson(result, State::class.java)
+                    Log.d("value of result", result.toString())
+                    var a:State = Gson().fromJson(result, State::class.java)
                     Log.d("value of a",a.toString())
                     //val test : State = gson.fromJson(apistates, State::class.java) //parsing JSON string to JAVA Object
                     //var convertedObject: JsonObject = Gson().fromJson(apistates, JsonObject::class.java)
