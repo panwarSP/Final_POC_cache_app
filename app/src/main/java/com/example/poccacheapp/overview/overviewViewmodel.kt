@@ -6,13 +6,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.poccacheapp.data.BaseStates
 import com.example.poccacheapp.data.State
 import com.example.poccacheapp.network.AllApi
 import com.google.gson.Gson
-import com.google.gson.JsonObject
+import com.google.gson.JsonArray
 import kotlinx.coroutines.launch
-import okhttp3.Response
 
 
 enum class StatesApiStatus { LOADING, ERROR, DONE}
@@ -51,14 +49,20 @@ class OverviewViewmodel(application: Application) : AndroidViewModel(application
         val v1 = (pref.getString("version1", "")).toString()
         val tv1 = (pref.getString("tempv1", "")).toString()
         val editor = pref.edit()
+        var c: Int
+
         Log.d("ds", url1.toString())
         viewModelScope.launch {
             try {
-                if(tv1!!.toDouble() > v1!!.toDouble()) {
-                    val s = AllApi.retrofitService.getStatesProperties(tu1.toString())
-                    _properties1.value = s.States
-                    val store2 = s.toString()
-                    editor.putString("statesapi", store2)
+                if(tv1.toDouble() > v1.toDouble()) {
+                    val s = AllApi.retrofitService.getStatesProperties(tu1.toString()).States
+                    _properties1.value = s
+                    //val store2 = s.toString()
+
+                    val json : List<State> = s
+                    val gson = Gson()
+                    val store = gson.toJson(json)
+                    editor.putString("statesapi", store)
                     editor.putString("url1", tu1.toString())
                     editor.putString("version1", tv1.toString())
                     //val p1 = pref.getString("stateapi", "")
@@ -68,10 +72,12 @@ class OverviewViewmodel(application: Application) : AndroidViewModel(application
                 }
                 else{
                     val gson = Gson()
-                    val apistates = pref.getString("statesapi", "")
-                    val test : BaseStates = gson.fromJson(apistates, BaseStates::class.java) //parsing JSON string to JAVA Object
+                    val result : String? ="{ States:${pref.getString("statesapi", "")}}"
+                    val a = gson.fromJson(result, State::class.java)
+                    Log.d("value of a",a.toString())
+                    //val test : State = gson.fromJson(apistates, State::class.java) //parsing JSON string to JAVA Object
                     //var convertedObject: JsonObject = Gson().fromJson(apistates, JsonObject::class.java)
-                    _properties1.value = test.States
+                    _properties1.value = listOf(a)
                     _status.value = StatesApiStatus.DONE
                 }
                 //_status.value = StatesApiStatus.DONE

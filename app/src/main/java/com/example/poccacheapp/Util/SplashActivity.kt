@@ -169,8 +169,8 @@ class SplashActivity : AppCompatActivity() {
             else{
                 editor.putString("url1",u1)
                 editor.putString("url2",u2)
-                editor.putString("version1",v1)
-                editor.putString("version2",v2)
+                editor.putString("version1","0.0")
+                editor.putString("version2","0.0")
                 editor.putString("tempurl1",u1)
                 editor.putString("tempurl2",u2)
                 editor.putString("tempv1",v1)
