@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.poccacheapp.data.BaseStates
 import com.example.poccacheapp.data.State
 import com.example.poccacheapp.network.AllApi
 import com.google.gson.Gson
@@ -54,8 +55,8 @@ class OverviewViewmodel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             try {
                 if(tv1!!.toDouble() > v1!!.toDouble()) {
-                    val s = AllApi.retrofitService.getStatesProperties(tu1.toString()).States
-                    _properties1.value = s
+                    val s = AllApi.retrofitService.getStatesProperties(tu1.toString())
+                    _properties1.value = s.States
                     val store2 = s.toString()
                     editor.putString("statesapi", store2)
                     editor.putString("url1", tu1.toString())
@@ -68,9 +69,9 @@ class OverviewViewmodel(application: Application) : AndroidViewModel(application
                 else{
                     val gson = Gson()
                     val apistates = pref.getString("statesapi", "")
-                    val test = gson.fromJson(apistates, State::class.java)
+                    val test : BaseStates = gson.fromJson(apistates, BaseStates::class.java) //parsing JSON string to JAVA Object
                     //var convertedObject: JsonObject = Gson().fromJson(apistates, JsonObject::class.java)
-                    _properties1.value = listOf(test)
+                    _properties1.value = test.States
                     _status.value = StatesApiStatus.DONE
                 }
                 //_status.value = StatesApiStatus.DONE
