@@ -60,8 +60,8 @@ class SplashActivity : AppCompatActivity() {
     fun getInfo(view: View){
         if (NetworkAvail()){
             splash_logo.setImageResource(R.drawable.capture)
-            //PrefetchData().execute("https://run.mocky.io/v3/11070c5e-7bcb-436d-a5a1-3fb536fb86a2")
-            if(getSharedPreferences("APIs",0).contains("url1")){
+            PrefetchData().execute("https://run.mocky.io/v3/11070c5e-7bcb-436d-a5a1-3fb536fb86a2")
+           /* if(getSharedPreferences("APIs",0).contains("url1")){
                 Log.d("ds","getSharedPreferences exists")
                 startActivity(i)
                 // close this activity
@@ -69,7 +69,7 @@ class SplashActivity : AppCompatActivity() {
             }
             else {
                 PrefetchData().execute("https://run.mocky.io/v3/11070c5e-7bcb-436d-a5a1-3fb536fb86a2")
-            }
+            }*/
         }
 
         else{
@@ -118,28 +118,67 @@ class SplashActivity : AppCompatActivity() {
             val dataJSON = JSONObject(result)
             val apiArray = dataJSON.getJSONArray("API_URLs")
 
+
             val obj1 = apiArray.getJSONObject(0)
             val u1 = obj1.getString("URL")
-            /*val urlS1 = "${u1.toString()}"
+            val v1 = obj1.getString("version")
+            /*val urlS1 = "https://run.mocky.io/v3/${u1.toString()}"
+            Log.d("p",urlS1)
             val baseurl1 = URL(urlS1)
             val conn1 = baseurl1.openConnection() as HttpURLConnection
-            val reader1 = BufferedReader(InputStreamReader(conn1.inputStream))
-            val response1 = reader1.lines()
-            val store1 = response1.toString()*/
+            conn1.connect()
+
+            //val reader1 = BufferedReader(InputStreamReader(conn1.inputStream))
+            //val response1 = reader1.lines()
+            //val store1 = response1.toString()*/
 
             val obj2 = apiArray.getJSONObject(1)
             val u2 = obj2.getString("URL")
-            /*val urlS2 = "${u2.toString()}"
+            val v2 = obj2.getString("version")
+            /*val urlS2 = "https://run.mocky.io/v3/${u2.toString()}"
             val baseurl2 = URL(urlS2)
             val conn2 = baseurl2.openConnection() as HttpURLConnection
+            conn2.connect()
             val reader2 = BufferedReader(InputStreamReader(conn2.inputStream))
             val response2 = reader2.lines()
             val store2 = response2.toString()*/
 
             val prefs = getSharedPreferences("APIs", Context.MODE_PRIVATE)
             val editor = prefs.edit()
-            editor.putString("url1",u1)
-            editor.putString("url2",u2)
+
+            if(getSharedPreferences("APIs",0).contains("url1")){
+               // val tempv1 = prefs.getString("version1","")
+               // val tempv2 = prefs.getString("version2","")
+                editor.putString("tempurl1",u1)
+                editor.putString("tempurl2",u2)
+                editor.putString("tempv1",v1)
+                editor.putString("tempv2",v2)
+                /*if(!(tempv1.equals(v1))){
+                    editor.putString("version1",v1)
+                    editor.putString("url1",u1)
+                    //editor.putString("statesapi",store1)
+                }
+
+                if(!(tempv2.equals(v2))){
+                    editor.putString("version2",v2)
+                    editor.putString("url2",u2)
+                    //editor.putString("photosapi",store2)
+                }*/
+
+            }
+            else{
+                editor.putString("url1",u1)
+                editor.putString("url2",u2)
+                editor.putString("version1",v1)
+                editor.putString("version2",v2)
+                editor.putString("tempurl1",u1)
+                editor.putString("tempurl2",u2)
+                editor.putString("tempv1",v1)
+                editor.putString("tempv2",v2)
+               // editor.putString("statesapi",store1)
+               // editor.putString("photosapi",store2)
+            }
+
             //editor.putString("baseurl1",store1)
             //editor.putString("baseurl2",store2)
 
