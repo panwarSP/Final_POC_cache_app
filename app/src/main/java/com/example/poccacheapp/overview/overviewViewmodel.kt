@@ -45,7 +45,14 @@ class OverviewViewmodel(application: Application) : AndroidViewModel(application
         Log.d("ds",url1.toString())
         viewModelScope.launch {
             try {
-                _properties1.value = AllApi.retrofitService.getStatesProperties(url1.toString()).States
+                val s = AllApi.retrofitService.getStatesProperties(url1.toString()).States
+                _properties1.value = s
+                val store2 = s.toString()
+                editor.putString("statesapi",store2)
+
+                val p1 = pref.getString("stateapi","")
+                editor.apply()
+                editor.commit()
                 _status.value = StatesApiStatus.DONE
             }
             catch (e: Exception) {

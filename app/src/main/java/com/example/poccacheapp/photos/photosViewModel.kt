@@ -39,9 +39,10 @@ class PhotosViewModel(application: Application) : AndroidViewModel(application){
             try {
                 val p = AllApi.retrofitService.getPhotosProperties(url2.toString()).photos
                 _photosProperties.value = p
-                editor.putString("photo1",p[0].detail.image.url)
+                val store1 = p.toString()
+                editor.putString("photosapi",store1)
 
-                val p1 = pref.getString("photo1","")
+                val p1 = pref.getString("photosapi","")
                 editor.apply()
                 editor.commit()
                 _status.value = PhotosApiStatus.DONE

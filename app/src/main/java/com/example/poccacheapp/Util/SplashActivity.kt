@@ -5,10 +5,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.poccacheapp.MainActivity
 import com.example.poccacheapp.R
@@ -16,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_splash.*
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
+import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -35,7 +38,11 @@ class SplashActivity : AppCompatActivity() {
 
 var Preference: String? = "APIs"
 private lateinit var i: Intent
+
+
 class SplashActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -64,6 +71,7 @@ class SplashActivity : AppCompatActivity() {
                 PrefetchData().execute("https://run.mocky.io/v3/11070c5e-7bcb-436d-a5a1-3fb536fb86a2")
             }
         }
+
         else{
             val API1 = getSharedPreferences("APIs",0).getString("url1","").toString()
             Log.d("ds",API1)
@@ -73,6 +81,9 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
+
     fun NetworkAvail(): Boolean{
         val cManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = cManager.activeNetwork
@@ -82,11 +93,14 @@ class SplashActivity : AppCompatActivity() {
         }
         return false
     }
+
+
+
     /**
      * Async Task to make http call
      */
-    private inner class PrefetchData :
-        AsyncTask<String, Void?, String>() {
+    private inner class PrefetchData : AsyncTask<String, Void?, String>() {
+
         override fun onPreExecute() {
             super.onPreExecute()
             // before making http calls
@@ -97,6 +111,7 @@ class SplashActivity : AppCompatActivity() {
             return result
         }
 
+        @RequiresApi(Build.VERSION_CODES.N)
         override fun onPostExecute(result: String) {
             super.onPostExecute(result)
 
@@ -105,13 +120,29 @@ class SplashActivity : AppCompatActivity() {
 
             val obj1 = apiArray.getJSONObject(0)
             val u1 = obj1.getString("URL")
+            /*val urlS1 = "${u1.toString()}"
+            val baseurl1 = URL(urlS1)
+            val conn1 = baseurl1.openConnection() as HttpURLConnection
+            val reader1 = BufferedReader(InputStreamReader(conn1.inputStream))
+            val response1 = reader1.lines()
+            val store1 = response1.toString()*/
+
             val obj2 = apiArray.getJSONObject(1)
             val u2 = obj2.getString("URL")
+            /*val urlS2 = "${u2.toString()}"
+            val baseurl2 = URL(urlS2)
+            val conn2 = baseurl2.openConnection() as HttpURLConnection
+            val reader2 = BufferedReader(InputStreamReader(conn2.inputStream))
+            val response2 = reader2.lines()
+            val store2 = response2.toString()*/
 
             val prefs = getSharedPreferences("APIs", Context.MODE_PRIVATE)
             val editor = prefs.edit()
             editor.putString("url1",u1)
             editor.putString("url2",u2)
+            //editor.putString("baseurl1",store1)
+            //editor.putString("baseurl2",store2)
+
             editor.apply()
             editor.commit()
 
