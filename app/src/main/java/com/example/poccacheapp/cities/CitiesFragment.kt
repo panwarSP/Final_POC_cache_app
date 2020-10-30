@@ -21,7 +21,7 @@ class CitiesFragment : Fragment() {
 
 
 
-        val city = CitiesFragmentArgs.fromBundle(arguments!!).selectedProperty.Cities
+        val city = CitiesFragmentArgs.fromBundle(requireArguments()).selectedProperty.Cities
         val viewModelFactory = CityViewModelFactory(city, application)
         binding.cityViewModel = ViewModelProvider(this, viewModelFactory).get(CitiesViewModel::class.java)
         return binding.root

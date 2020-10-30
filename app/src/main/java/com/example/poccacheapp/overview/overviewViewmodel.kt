@@ -10,8 +10,9 @@ import com.example.poccacheapp.data.BaseStates
 import com.example.poccacheapp.data.State
 import com.example.poccacheapp.network.AllApi
 import com.google.gson.Gson
-import com.google.gson.JsonArray
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
+import java.lang.reflect.Type
 
 
 enum class StatesApiStatus { LOADING, ERROR, DONE}
@@ -62,7 +63,9 @@ class OverviewViewmodel(application: Application) : AndroidViewModel(application
 
                     val json : List<State> = s
                     val gson = Gson()
-                    val store = gson.toJson(json)
+                    var store = gson.toJson(json)
+                    store = "{States: ${store}}"
+                    Log.d("value of store",store)
                     editor.putString("statesapi", store)
                     editor.putString("url1", tu1.toString())
                     editor.putString("version1", tv1.toString())
@@ -73,13 +76,15 @@ class OverviewViewmodel(application: Application) : AndroidViewModel(application
                 }
                 else{
                     val gson = Gson()
-                    val result : String? ="{ States:${pref.getString("statesapi", "")}}"
+                    val result : String? = pref.getString("statesapi", "")
                     Log.d("value of result", result.toString())
-                    var a:State = Gson().fromJson(result, State::class.java)
+                    //val result1 = Gson().toJson(result)
+                    val type: Type = object : TypeToken<BaseStates?>() {}.type
+                    val a: BaseStates = Gson().fromJson(result, type)
                     Log.d("value of a",a.toString())
                     //val test : State = gson.fromJson(apistates, State::class.java) //parsing JSON string to JAVA Object
                     //var convertedObject: JsonObject = Gson().fromJson(apistates, JsonObject::class.java)
-                    _properties1.value = listOf(a)
+                    _properties1.value = a.States
                     _status.value = StatesApiStatus.DONE
                 }
                 //_status.value = StatesApiStatus.DONE

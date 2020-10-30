@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.poccacheapp.MainActivity
@@ -73,12 +74,18 @@ class SplashActivity : AppCompatActivity() {
         }
 
         else{
-            val API1 = getSharedPreferences("APIs",0).getString("url1","").toString()
-            Log.d("ds",API1)
-
-            startActivity(i)
-            // close this activity
-            finish()
+            //val API1 = getSharedPreferences("APIs",0).getString("url1","").toString()
+            //Log.d("ds",API1)
+            splash_logo.setImageResource(R.drawable.capture)
+            if(getSharedPreferences("APIs",0).contains("url1")){
+                startActivity(i)
+                // close this activity
+                finish()
+            }
+            else {
+                splash_logo.setImageResource(R.drawable.capture)
+                Toast.makeText(this, "Network is not Available", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
