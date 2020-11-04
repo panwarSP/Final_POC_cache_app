@@ -21,7 +21,7 @@ data class City(
     val City_name: String,
     val STD_Code: String,
     val City_Image: String,
-    val city_weather: List<City_weather1>,
+    val City_weather: City_weather1,
     val main: Main
 ):Parcelable
 
@@ -33,7 +33,7 @@ data class City_weather1(
 ):Parcelable
 @Parcelize
 data class Main(
-    val temp: Int,
+    val temprature: Int,
     val pressure: Int,
     val humidity: Int
 ):Parcelable

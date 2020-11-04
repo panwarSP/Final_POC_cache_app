@@ -1,9 +1,5 @@
 package com.example.poccacheapp.network
 
-import android.R
-import android.content.Context.MODE_PRIVATE
-import android.os.Bundle
-import android.widget.TextView
 import com.example.poccacheapp.data.BasePhotos
 import com.example.poccacheapp.data.BaseStates
 import com.squareup.moshi.Moshi
@@ -11,10 +7,11 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Path
 
 
-private const val BASE_URL = "https://run.mocky.io/v3/"
+private const val BASE_URL = "https://bfl-api-dev.azure-api.net/bajaj-cache-poc/"
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -26,13 +23,13 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface ApiService {
-
+    //@Headers("Content-Type:application/json; Ocp-Apim-Subscription-Key: 6ea90c6f2d5d47f8bfa750dc063668ac; Ocp-Apim-Trace: true")
     @GET("{url}")
     suspend fun getStatesProperties(@Path("url") url: String?): BaseStates
 
+    //@Headers("Content-Type:application/json; Ocp-Apim-Subscription-Key: 6ea90c6f2d5d47f8bfa750dc063668ac; Ocp-Apim-Trace: true")
     @GET("{url}")
     suspend fun getPhotosProperties(@Path("url") url: String?): BasePhotos
-
 }
 
 

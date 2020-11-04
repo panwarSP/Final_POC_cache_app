@@ -25,27 +25,27 @@ class CitiesViewModel(@Suppress("UNUSED_PARAMETER")city: List<City>,app:Applicat
         it[0].City_name
     }
     val displayTemp = Transformations.map(selectedProperty2){
-        it[0].main.temp.toString()
+        it[0].main.temprature.toString()
     }
 
     val displaySTD = Transformations.map(selectedProperty2){
         it[0].STD_Code
     }
     val displayCity_weather1 = Transformations.map(selectedProperty2){
-        it[0].city_weather[0].weather
+        it[0].City_weather.weather
     }
 
     val displayCityName2 = Transformations.map(selectedProperty2){
         it[1].City_name
     }
     val displayTemp2 = Transformations.map(selectedProperty2){
-        it[1].main.temp.toString()
+        it[1].main.temprature.toString()
     }
 
     val displaySTD2 = Transformations.map(selectedProperty2){
         it[1].STD_Code
     }
     val displayCity_weather12 = Transformations.map(selectedProperty2){
-        it[1].city_weather[0].weather
+        it[1].City_weather.weather
     }
 }

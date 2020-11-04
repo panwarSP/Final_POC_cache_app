@@ -51,13 +51,14 @@ class OverviewViewmodel(application: Application) : AndroidViewModel(application
         val v1 = (pref.getString("version1", "")).toString()
         val tv1 = (pref.getString("tempv1", "")).toString()
         val editor = pref.edit()
-        var c: Int
-
+        Log.d("ds", tu1.toString())
+        val endpoint1 = tu1?.toString()?.substring(50)
+        Log.d("ds", endpoint1.toString())
         Log.d("ds", url1.toString())
         viewModelScope.launch {
             try {
                 if(tv1.toDouble() > v1.toDouble()) {
-                    val s = AllApi.retrofitService.getStatesProperties(tu1.toString()).States
+                    val s = AllApi.retrofitService.getStatesProperties(endpoint1.toString()).States
                     _properties1.value = s
                     //val store2 = s.toString()
 
@@ -75,7 +76,6 @@ class OverviewViewmodel(application: Application) : AndroidViewModel(application
                     _status.value = StatesApiStatus.DONE
                 }
                 else{
-                    val gson = Gson()
                     val result : String? = pref.getString("statesapi", "")
                     Log.d("value of result", result.toString())
                     //val result1 = Gson().toJson(result)

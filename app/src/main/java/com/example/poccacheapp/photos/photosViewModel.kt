@@ -47,11 +47,11 @@ class PhotosViewModel(application: Application) : AndroidViewModel(application){
         val v2 = (pref.getString("version2", "")).toString()
         val tv2 = (pref.getString("tempv2", "")).toString()
         val editor = pref.edit()
-        var c: Int
+        val endpoint2 = tu2?.substring(50)
         viewModelScope.launch {
             try {
                 if(tv2.toDouble() > v2.toDouble()) {
-                    val s = AllApi.retrofitService.getPhotosProperties(tu2.toString()).photos
+                    val s = AllApi.retrofitService.getPhotosProperties(endpoint2.toString()).photos
                     _photosProperties.value = s
                     //val store2 = s.toString()
 
@@ -69,7 +69,6 @@ class PhotosViewModel(application: Application) : AndroidViewModel(application){
                     _status.value = PhotosApiStatus.DONE
                 }
                 else{
-                    val gson = Gson()
                     val result : String? = pref.getString("photosapi", "")
                     Log.d("value of result", result.toString())
                     //val result1 = Gson().toJson(result)

@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.poccacheapp.MainActivity
 import com.example.poccacheapp.R
-import com.example.poccacheapp.Util.Preference
 import com.example.poccacheapp.Util.SplashActivity
 import com.example.poccacheapp.data.Main
 import com.example.poccacheapp.databinding.ListViewStatesBinding
@@ -22,6 +21,7 @@ class OverviewFragment : Fragment() {
     private val viewModel: OverviewViewmodel by lazy {
         ViewModelProvider(this).get(OverviewViewmodel::class.java)
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 

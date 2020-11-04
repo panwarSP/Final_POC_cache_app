@@ -23,45 +23,27 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-
-/*
-class SplashActivity : AppCompatActivity() {
-    private val splashViewModel: SplashViewModel by viewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-
-        PrefetchData()
-    }
-
-}
-*/
-
-var Preference: String? = "APIs"
 private lateinit var i: Intent
 
-
-class SplashActivity : AppCompatActivity() {
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-        i = Intent(this@SplashActivity, MainActivity::class.java)
-        getInfo(text)
-        /*Handler().postDelayed(
-            {
-                PrefetchData().execute()
-            }, 5000)*/
-
+class SplashActivity : AppCompatActivity()
+    {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_splash)
+            i = Intent(this@SplashActivity, MainActivity::class.java)
+            getInfo()
+            /*Handler().postDelayed(
+                {
+                    PrefetchData().execute()
+                }, 5000)*/
     }
 
-
-
-    fun getInfo(view: View){
+    fun getInfo(){
         if (NetworkAvail()){
             splash_logo.setImageResource(R.drawable.capture)
-            PrefetchData().execute("https://run.mocky.io/v3/11070c5e-7bcb-436d-a5a1-3fb536fb86a2")
+            //PrefetchData().execute("https://run.mocky.io/v3/11070c5e-7bcb-436d-a5a1-3fb536fb86a2")
+            //PrefetchData().execute( "https://run.mocky.io/v3/32616ee6-4755-4032-b9b3-cc352c8308fb")
+            PrefetchData().execute("https://bfl-api-dev.azure-api.net/bajaj-cache-poc/api/")
            /* if(getSharedPreferences("APIs",0).contains("url1")){
                 Log.d("ds","getSharedPreferences exists")
                 startActivity(i)
@@ -89,8 +71,6 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-
-
     fun NetworkAvail(): Boolean{
         val cManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = cManager.activeNetwork
@@ -100,8 +80,6 @@ class SplashActivity : AppCompatActivity() {
         }
         return false
     }
-
-
 
     /**
      * Async Task to make http call
@@ -123,12 +101,12 @@ class SplashActivity : AppCompatActivity() {
             super.onPostExecute(result)
 
             val dataJSON = JSONObject(result)
-            val apiArray = dataJSON.getJSONArray("API_URLs")
-
+            val apiArray = dataJSON.getJSONArray("API URLs")
 
             val obj1 = apiArray.getJSONObject(0)
             val u1 = obj1.getString("URL")
             val v1 = obj1.getString("version")
+
             /*val urlS1 = "https://run.mocky.io/v3/${u1.toString()}"
             Log.d("p",urlS1)
             val baseurl1 = URL(urlS1)
@@ -165,13 +143,11 @@ class SplashActivity : AppCompatActivity() {
                     editor.putString("url1",u1)
                     //editor.putString("statesapi",store1)
                 }
-
                 if(!(tempv2.equals(v2))){
                     editor.putString("version2",v2)
                     editor.putString("url2",u2)
                     //editor.putString("photosapi",store2)
                 }*/
-
             }
             else{
                 editor.putString("url1",u1)
@@ -185,10 +161,8 @@ class SplashActivity : AppCompatActivity() {
                // editor.putString("statesapi",store1)
                // editor.putString("photosapi",store2)
             }
-
             //editor.putString("baseurl1",store1)
             //editor.putString("baseurl2",store2)
-
             editor.apply()
             editor.commit()
 
@@ -201,19 +175,19 @@ class SplashActivity : AppCompatActivity() {
 
         val inputStream: InputStream
         val result:String
-
         // create URL
         val url:URL = URL(myURL)
-
         // create HttpURLConnection
         val conn:HttpURLConnection = url.openConnection() as HttpURLConnection
-
         // make GET request to the given URL
-        conn.connect()
+        conn.setRequestProperty("Content-Type","application/json")
+        conn.setRequestProperty("Ocp-Apim-Subscription-Key","6ea90c6f2d5d47f8bfa750dc063668ac")
+        conn.setRequestProperty("Ocp-Apim-Trace","true")
+        conn.requestMethod  = "GET"
 
+        conn.connect()
         // receive response as inputStream
         inputStream = conn.inputStream
-
         // convert inputstream to string
         if(inputStream != null) {
             result = inputStream.bufferedReader().use(BufferedReader::readText)
@@ -222,26 +196,4 @@ class SplashActivity : AppCompatActivity() {
             result = " "
         return result
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-private val _properties1 = MutableLiveData<List<api>>()
-val properties1: LiveData<List<api>>
-    get() = _properties1
-
-private val _status = MutableLiveData<AllApiStatus1>()
-val status: LiveData<AllApiStatus1>
-    get() = _status
-*/
